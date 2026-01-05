@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprendiendo Grid y Flexbox</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            color: #2575fc;
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        h3 {
+            color: #6a11cb;
+            margin: 20px 0 10px;
+        }
+        
+        .intro {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .example-container {
+            min-height: 300px;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .flex-example {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .grid-example {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .item {
+            background-color: #6a11cb;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+        }
+        
+        .item:nth-child(2n) {
+            background-color: #2575fc;
+        }
+        
+        .item:nth-child(3n) {
+            background-color: #2dd4bf;
+        }
+        
+        .item:nth-child(4n) {
+            background-color: #f59e0b;
+        }
+        
+        .item:nth-child(5n) {
+            background-color: #ef4444;
+        }
+        
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        button {
+            padding: 10px 15px;
+            background-color: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background-color: #1a68e8;
+        }
+        
+        select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #ddd;
+            background-color: white;
+        }
+        
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            font-size: 0.9rem;
+        }
+        
+        .highlight {
+            color: #ff79c6;
+        }
+        
+        .property {
+            color: #50fa7b;
+        }
+        
+        .value {
+            color: #f1fa8c;
+        }
+        
+        .comparison {
+            margin: 40px 0;
+            padding: 25px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            color: #2575fc;
+        }
+        
+        .tip {
+            background-color: #e6f7ff;
+            border-left: 4px solid #2575fc;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Aprendiendo Grid y Flexbox</h1>
+        <p>Dos poderosas herramientas de CSS para crear diseños modernos</p>
+    </header>
+    
+    <section class="intro">
+        <p>Flexbox y Grid son dos sistemas de diseño en CSS que nos permiten crear estructuras complejas y responsivas de manera eficiente. Aunque pueden parecer similares, cada uno tiene su propósito específico:</p>
+        <ul style="padding-left: 20px; margin-top: 10px;">
+            <li><strong>Flexbox</strong> está diseñado para diseños en una dimensión (filas o columnas)</li>
+            <li><strong>Grid</strong> está diseñado para diseños en dos dimensiones (filas y columnas simultáneamente)</li>
+        </ul>
+    </section>
+    
+    <div class="container">
+        <div class="card">
+            <h2>Flexbox</h2>
+            <p>Flexbox es un sistema unidimensional que nos permite alinear elementos en una fila o columna, con control sobre su distribución, alineación y orden.</p>
+            
+            <h3>Ejemplo interactivo:</h3>
+            <div class="example-container">
+                <div class="flex-example" id="flexContainer">
+                    <div class="item">1</div>
+                    <div class="item">2</div>
+                    <div class="item">3</div>
+                    <div class="item">4</div>
+                    <div class="item">5</div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <div>
+                    <label for="flexDirection">Dirección: </label>
+                    <select id="flexDirection" onchange="updateFlexbox()">
+                        <option value="row">Fila (row)</option>
+                        <option value="row-reverse">Fila inversa (row-reverse)</option>
+                        <option value="column">Columna (column)</option>
+                        <option value="column-reverse">Columna inversa (column-reverse)</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="justifyContent">Justificación: </label>
+                    <select id="justifyContent" onchange="updateFlexbox()">
+                        <option value="flex-start">Inicio (flex-start)</option>
+                        <option value="center">Centro (center)</option>
+                        <option value="flex-end">Final (flex-end)</option>
+                        <option value="space-between">Espacio entre (space-between)</option>
+                        <option value="space-around">Espacio alrededor (space-around)</option>
+                        <option value="space-evenly">Espacio uniforme (space-evenly)</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="alignItems">Alineación: </label>
+                    <select id="alignItems" onchange="updateFlexbox()">
+                        <option value="stretch">Estirar (stretch)</option>
+                        <option value="flex-start">Inicio (flex-start)</option>
+                        <option value="center">Centro (center)</option>
+                        <option value="flex-end">Final (flex-end)</option>
+                        <option value="baseline">Línea base (baseline)</option>
+                    </select>
+                </div>
+                
+                <button onclick="resetFlexbox()">Reiniciar</button>
+            </div>
+            
+            <h3>Código CSS aplicado:</h3>
+            <div class="code-block" id="flexCode">
+<span class="highlight">.flex-container</span> {
+  <span class="property">display</span>: <span class="value">flex</span>;
+  <span class="property">flex-direction</span>: <span class="value">row</span>;
+  <span class="property">justify-content</span>: <span class="value">flex-start</span>;
+  <span class="property">align-items</span>: <span class="value">stretch</span>;
+  <span class="property">gap</span>: <span class="value">10px</span>;
+}
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>CSS Grid</h2>
+            <p>Grid es un sistema bidimensional que nos permite crear layouts complejos con filas y columnas, definiendo áreas específicas para cada elemento.</p>
+            
+            <h3>Ejemplo interactivo:</h3>
+            <div class="example-container">
+                <div class="grid-example" id="gridContainer">
+                    <div class="item">1</div>
+                    <div class="item">2</div>
+                    <div class="item">3</div>
+                    <div class="item">4</div>
+                    <div class="item">5</div>
+                    <div class="item">6</div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <div>
+                    <label for="gridColumns">Columnas: </label>
+                    <select id="gridColumns" onchange="updateGrid()">
+                        <option value="1fr 1fr">2 columnas iguales</option>
+                        <option value="1fr 1fr 1fr">3 columnas iguales</option>
+                        <option value="1fr 2fr 1fr">Columna central más ancha</option>
+                        <option value="repeat(4, 1fr)">4 columnas iguales</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="gridRows">Filas: </label>
+                    <select id="gridRows" onchange="updateGrid()">
+                        <option value="auto">Automático (auto)</option>
+                        <option value="100px 150px">100px y 150px</option>
+                        <option value="repeat(3, 80px)">3 filas de 80px</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="gridGap">Espaciado: </label>
+                    <select id="gridGap" onchange="updateGrid()">
+                        <option value="10px">10px</option>
+                        <option value="20px">20px</option>
+                        <option value="15px 30px">15px 30px</option>
+                    </select>
+                </div>
+                
+                <button onclick="resetGrid()">Reiniciar</button>
+            </div>
+            
+            <h3>Código CSS aplicado:</h3>
+            <div class="code-block" id="gridCode">
+<span class="highlight">.grid-container</span> {
+  <span class="property">display</span>: <span class="value">grid</span>;
+  <span class="property">grid-template-columns</span>: <span class="value">1fr 1fr</span>;
+  <span class="property">grid-template-rows</span>: <span class="value">auto</span>;
+  <span class="property">gap</span>: <span class="value">10px</span>;
+}
+            </div>
+        </div>
+    </div>
+    
+    <section class="comparison">
+        <h2>¿Cuándo usar Flexbox y cuándo usar Grid?</h2>
+        
+        <div class="tip">
+            <strong>Consejo:</strong> Flexbox es ideal para componentes y diseños en una dirección, mientras que Grid es perfecto para layouts generales de página y diseños bidimensionales.
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Característica</th>
+                    <th>Flexbox</th>
+                    <th>CSS Grid</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Dimensión</strong></td>
+                    <td>Unidimensional (fila O columna)</td>
+                    <td>Bidimensional (filas Y columnas)</td>
+                </tr>
+                <tr>
+                    <td><strong>Uso principal</strong></td>
+                    <td>Componentes pequeños, alineación de elementos</td>
+                    <td>Layouts de página completa, estructuras complejas</td>
+                </tr>
+                <tr>
+                    <td><strong>Control</strong></td>
+                    <td>Control en una dirección a la vez</td>
+                    <td>Control simultáneo en ambas direcciones</td>
+                </tr>
+                <tr>
+                    <td><strong>Orden elementos</strong></td>
+                    <td>Sí (order property)</td>
+                    <td>Sí (grid-area, grid-row, grid-column)</td>
+                </tr>
+                <tr>
+                    <td><strong>Compatibilidad</strong></td>
+                    <td>Excelente (IE11+ con prefijos)</td>
+                    <td>Buena (IE11 con especificación antigua)</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    
+    <footer>
+        <p>Ejercicio para aprender Grid y Flexbox &copy; 2023</p>
+        <p>Modifica los controles para ver cómo cambian los diseños</p>
+    </footer>
+    
+    <script>
+        // Funciones para Flexbox
+        function updateFlexbox() {
+            const flexContainer = document.getElementById('flexContainer');
+            const flexDirection = document.getElementById('flexDirection').value;
+            const justifyContent = document.getElementById('justifyContent').value;
+            const alignItems = document.getElementById('alignItems').value;
+            
+            // Aplicar estilos al contenedor flex
+            flexContainer.style.flexDirection = flexDirection;
+            flexContainer.style.justifyContent = justifyContent;
+            flexContainer.style.alignItems = alignItems;
+            
+            // Actualizar código mostrado
+            document.getElementById('flexCode').innerHTML = `<span class="highlight">.flex-container</span> {
+  <span class="property">display</span>: <span class="value">flex</span>;
+  <span class="property">flex-direction</span>: <span class="value">${flexDirection}</span>;
+  <span class="property">justify-content</span>: <span class="value">${justifyContent}</span>;
+  <span class="property">align-items</span>: <span class="value">${alignItems}</span>;
+  <span class="property">gap</span>: <span class="value">10px</span>;
+}`;
+        }
+        
+        function resetFlexbox() {
+            document.getElementById('flexDirection').value = 'row';
+            document.getElementById('justifyContent').value = 'flex-start';
+            document.getElementById('alignItems').value = 'stretch';
+            updateFlexbox();
+        }
+        
+        // Funciones para Grid
+        function updateGrid() {
+            const gridContainer = document.getElementById('gridContainer');
+            const gridColumns = document.getElementById('gridColumns').value;
+            const gridRows = document.getElementById('gridRows').value;
+            const gridGap = document.getElementById('gridGap').value;
+            
+            // Aplicar estilos al contenedor grid
+            gridContainer.style.gridTemplateColumns = gridColumns;
+            gridContainer.style.gridTemplateRows = gridRows;
+            gridContainer.style.gap = gridGap;
+            
+            // Actualizar código mostrado
+            document.getElementById('gridCode').innerHTML = `<span class="highlight">.grid-container</span> {
+  <span class="property">display</span>: <span class="value">grid</span>;
+  <span class="property">grid-template-columns</span>: <span class="value">${gridColumns}</span>;
+  <span class="property">grid-template-rows</span>: <span class="value">${gridRows}</span>;
+  <span class="property">gap</span>: <span class="value">${gridGap}</span>;
+}`;
+        }
+        
+        function resetGrid() {
+            document.getElementById('gridColumns').value = '1fr 1fr';
+            document.getElementById('gridRows').value = 'auto';
+            document.getElementById('gridGap').value = '10px';
+            updateGrid();
+        }
+        
+        // Inicializar ejemplos
+        document.addEventListener('DOMContentLoaded', function() {
+            updateFlexbox();
+            updateGrid();
+        });
+    </script>
+</body>
+</html>
